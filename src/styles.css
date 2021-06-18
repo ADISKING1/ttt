@@ -1,0 +1,19 @@
+.App {
+  font-family: sans-serif;
+  text-align: center;
+}
+.Board {
+  display: flex;
+}
+.cell {
+  padding: 22px;
+  background: radial-gradient(#00968800 43%, #607d8b -5%);
+  font-weight: bolder;
+  font-size: 24px;
+  width: 27px;
+  height: 27px;
+  text-align: center;
+}
+input {
+  margin-bottom: 10px;
+}
