@@ -11,7 +11,11 @@ export default class App extends Component {
   render() {
     return (
       <div>
-        <h1> Tic Tac Toe </h1>
+        <h1>
+          <span className="O no-bg">Tic </span>
+          <span className="Tie ">Tac </span>
+          <span className="X no-bg">Toe</span>
+        </h1>
         <input
           value={this.state.gridSizeInput}
           onChange={(e) => {

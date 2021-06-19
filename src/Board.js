@@ -8,6 +8,7 @@ export default class Board extends Component {
       cells: [],
       canPlay: true,
       winner: 0,
+      counter: 0,
     };
   }
   componentDidMount() {
@@ -18,7 +19,13 @@ export default class Board extends Component {
       this.resetGame();
     }
   }
+  boardFull() {
+    return this.state.counter == this.props.gridSize * this.props.gridSize;
+  }
   resetGame() {
+    this.setState({
+      counter: 0,
+    });
     let tempArr1 = [];
     let tempArr = [];
     for (var j = 0; j < this.props.gridSize; j++) {
@@ -32,7 +39,7 @@ export default class Board extends Component {
   }
 
   cellClicked(x, y) {
-    if (this.state.canPlay) {
+    if (this.state.canPlay && !this.boardFull()) {
       var arr = [];
       for (var i = 0; i < this.props.gridSize; i++) {
         arr.push([...this.state.cells[i]]);
@@ -41,14 +48,16 @@ export default class Board extends Component {
       if (temp[x][y] === "") {
         temp[x][y] = this.state.turn ? 1 : 0;
         this.setState({ cells: temp });
-        // this.toggleTurn();
-      }
-      let win = this.didWin(temp);
-      if (win !== "") {
-        this.setState({ canPlay: false });
-        this.setState({ winner: win });
-      } else {
-        this.toggleTurn();
+        let win = this.didWin(temp);
+        if (win !== "") {
+          this.setState({ canPlay: false });
+          this.setState({ winner: win });
+        } else {
+          this.toggleTurn();
+          this.setState({
+            counter: this.state.counter + 1,
+          });
+        }
       }
     }
   }
@@ -149,9 +158,15 @@ export default class Board extends Component {
   render() {
     return (
       <div>
-        <div className={`message ${this.state.turn == 0 ? "O" : "X"}`}>
+        <div
+          className={`message no-bg ${this.state.turn == 0 ? "O" : "X"} ${
+            this.state.canPlay ? (this.boardFull() ? "Tie" : "") : "Won"
+          }`}
+        >
           {this.state.canPlay
-            ? `Player ${this.state.turn ? "X" : "O"}'s turn`
+            ? this.boardFull()
+              ? "Tied!"
+              : `Player ${this.state.turn ? "X" : "O"}'s turn`
             : `Player ${this.state.winner ? "X" : "O"} has won!`}
         </div>
         <div>{this.makeGrid()}</div>
