@@ -1,6 +1,7 @@
 import { Component } from "react";
 import Board from "./Board";
 import "./styles.css";
+import logo from "./images/github.png";
 
 export default class App extends Component {
   constructor(props) {
@@ -16,12 +17,17 @@ export default class App extends Component {
           <span className="Tie ">Tac </span>
           <span className="X no-bg">Toe</span>
         </h1>
-        <input
+        <label>Grid: </label>
+        <select
           value={this.state.gridSizeInput}
           onChange={(e) => {
             this.setState({ gridSizeInput: e.target.value });
           }}
-        ></input>
+        >
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
         <button
           onClick={() => {
             this.setState({ gridSize: this.state.gridSizeInput });
@@ -31,9 +37,13 @@ export default class App extends Component {
           Reset Board
         </button>
         <Board
+          className="Board"
           gridSize={this.state.gridSize}
           boardReset={this.state.boardReset}
         />
+        <a href="https://github.com/ADISKING1/ttt" target="_blank">
+          <img src={logo} alt="git" />
+        </a>
       </div>
     );
   }

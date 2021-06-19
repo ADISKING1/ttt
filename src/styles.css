@@ -6,6 +6,9 @@ body {
   font-family: sans-serif;
   text-align: center;
 }
+.Board {
+  margin-bottom: 50px;
+}
 .Row {
   display: flex;
   justify-content: center;
@@ -23,15 +26,16 @@ body {
   text-align: center;
   cursor: default;
 }
-input {
-  margin-bottom: 10px;
+select {
+  margin: 10px;
+  height: 30px;
   border: 2px solid coral;
   padding: 1px 10px;
   font-family: "Poppins", sans-serif;
-  border-style: solid hidden solid solid;
-  border-radius: 3px 0px 0px 3px;
+  border-style: solid solid solid solid;
+  border-radius: 3px 3px 3px 3px;
   text-align: center;
-  width: 35px;
+  width: auto;
 }
 input:focus,
 textarea:focus,
@@ -39,16 +43,25 @@ select:focus {
   outline: none;
 }
 button {
+  height: 30px;
   border: 2px solid cornflowerblue;
   font-family: "Poppins", sans-serif;
   background-color: white;
   padding: 3px 10px;
   cursor: pointer;
 }
+img {
+  height: 40px;
+  border: 2px solid #181616;
+  border-radius: 3px;
+  margin: 20px;
+}
 .message {
   margin: 10px;
   font-size: 24px;
   font-weight: 700;
+  height: 50px;
+  padding-top: 10px;
 }
 .O {
   background-color: rgba(100, 148, 237, 0.08);
@@ -59,8 +72,9 @@ button {
   color: coral;
 }
 .Won {
+  transform-origin: -50% -50%;
   animation-name: example;
-  animation-duration: 1s;
+  animation-duration: 2s;
   animation-iteration-count: infinite;
 }
 .Tie {
@@ -74,6 +88,7 @@ button {
   0% {
     color: coral;
     font-size: 24px;
+    transform: scale(100%);
   }
   33% {
     color: #1a936f;
