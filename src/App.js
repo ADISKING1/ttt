@@ -1,7 +1,7 @@
 import { Component } from "react";
 import Board from "./Board";
 import "./styles.css";
-import logo from "./images/github.png";
+import logo from "./image/github.png";
 
 export default class App extends Component {
   constructor(props) {
