@@ -5,7 +5,7 @@ import "./styles.css";
 export default class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { gridSize: 3 };
+    this.state = { gridSize: 3, gridSizeInput: 3, boardReset: false };
   }
 
   render() {
@@ -13,12 +13,23 @@ export default class App extends Component {
       <div>
         <h1> Tic Tac Toe </h1>
         <input
-          value={this.state.gridSize}
+          value={this.state.gridSizeInput}
           onChange={(e) => {
-            this.setState({ gridSize: e.target.value });
+            this.setState({ gridSizeInput: e.target.value });
           }}
         ></input>
-        <Board gridSize={this.state.gridSize} />
+        <button
+          onClick={() => {
+            this.setState({ gridSize: this.state.gridSizeInput });
+            this.setState({ boardReset: !this.state.boardReset });
+          }}
+        >
+          Reset Board
+        </button>
+        <Board
+          gridSize={this.state.gridSize}
+          boardReset={this.state.boardReset}
+        />
       </div>
     );
   }

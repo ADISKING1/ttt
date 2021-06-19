@@ -1,13 +1,18 @@
+body {
+  text-align: center;
+  font-family: "Poppins", sans-serif;
+}
 .App {
   font-family: sans-serif;
   text-align: center;
 }
-.Board {
+.Row {
   display: flex;
+  justify-content: center;
 }
 .cell {
-  padding: 22px;
-  background: radial-gradient(#00968800 43%, #607d8b -5%);
+  padding: 22px 26px 29px;
+  border: 1px solid;
   font-weight: bolder;
   font-size: 24px;
   width: 27px;
@@ -16,4 +21,20 @@
 }
 input {
   margin-bottom: 10px;
+  border-style: solid hidden solid solid;
+}
+button {
+  font-family: "Poppins", sans-serif;
+  background-color: white;
+  padding: 3px 10px;
+}
+.message {
+  margin: 10px;
+  font-size: 24px;
+}
+.O {
+  color: cornflowerblue;
+}
+.X {
+  color: coral;
 }

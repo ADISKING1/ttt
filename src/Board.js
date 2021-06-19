@@ -6,13 +6,15 @@ export default class Board extends Component {
     this.state = {
       turn: 0,
       cells: [],
+      canPlay: true,
+      winner: 0,
     };
   }
   componentDidMount() {
     this.resetGame();
   }
   componentDidUpdate(prevProps) {
-    if (this.props.gridSize != prevProps.gridSize) {
+    if (this.props.boardReset != prevProps.boardReset) {
       this.resetGame();
     }
   }
@@ -26,20 +28,91 @@ export default class Board extends Component {
       tempArr1.push(tempArr);
     }
     this.setState({ cells: tempArr1 });
+    this.setState({ canPlay: true });
   }
 
   cellClicked(x, y) {
-    // debugger;
-    var arr = [];
-    for (var i = 0; i < this.props.gridSize; i++) {
-      arr.push([...this.state.cells[i]]);
+    if (this.state.canPlay) {
+      var arr = [];
+      for (var i = 0; i < this.props.gridSize; i++) {
+        arr.push([...this.state.cells[i]]);
+      }
+      var temp = [...arr];
+      if (temp[x][y] === "") {
+        temp[x][y] = this.state.turn ? 1 : 0;
+        this.setState({ cells: temp });
+        // this.toggleTurn();
+      }
+      let win = this.didWin(temp);
+      if (win !== "") {
+        this.setState({ canPlay: false });
+        this.setState({ winner: win });
+      } else {
+        this.toggleTurn();
+      }
     }
-    var temp = [...arr];
-    if (temp[x][y] === "") {
-      temp[x][y] = this.state.turn ? 1 : 0;
-      this.setState({ cells: temp });
-      this.toggleTurn();
+  }
+
+  didWin(temp) {
+    //horizontal
+    for (let i = 0; i < this.props.gridSize; i++) {
+      let t = temp[i][0],
+        flag = true;
+      for (let j = 1; j < this.props.gridSize; j++) {
+        if (temp[i][j] === "" || temp[i][j] !== t) {
+          flag = false;
+          break;
+        }
+      }
+      if (flag) {
+        return t;
+      }
     }
+
+    //vertical
+    for (let i = 0; i < this.props.gridSize; i++) {
+      let t = temp[0][i],
+        flag = true;
+      for (let j = 1; j < this.props.gridSize; j++) {
+        if (temp[j][i] === "" || temp[j][i] !== t) {
+          flag = false;
+          break;
+        }
+      }
+      if (flag) {
+        return t;
+      }
+    }
+
+    //diagonal
+    let t = temp[0][0];
+    let flag = true;
+    // \
+    for (let j = 1; j < this.props.gridSize; j++) {
+      if (temp[j][j] === "" || temp[j][j] !== t) {
+        flag = false;
+        break;
+      }
+    }
+    if (flag) {
+      return t;
+    }
+    // /
+    t = temp[0][this.props.gridSize - 1];
+    flag = true;
+    for (let j = 1; j < this.props.gridSize; j++) {
+      if (
+        temp[j][this.props.gridSize - 1 - j] === "" ||
+        temp[j][this.props.gridSize - 1 - j] !== t
+      ) {
+        flag = false;
+        break;
+      }
+    }
+    if (flag) {
+      return t;
+    }
+    return "";
   }
 
   toggleTurn() {
@@ -54,7 +127,7 @@ export default class Board extends Component {
     }
     return this.arr.map((i, index) => {
       return (
-        <div className="Board" key={index}>
+        <div className="Row" key={index}>
           {this.arr.map((j, index1) => {
             return (
               <div
@@ -63,7 +136,7 @@ export default class Board extends Component {
                   this.cellClicked(index, index1);
                 }}
               >
-                {!!this.state.cells.length && (
+                {this.state.cells.length == this.props.gridSize && (
                   <Cell value={this.state.cells[index][index1]} />
                 )}
               </div>
@@ -76,8 +149,12 @@ export default class Board extends Component {
   render() {
     return (
       <div>
-        <div>{`Player ${this.state.turn ? "X" : "O"}'s turn`}</div>
-        {this.makeGrid()}
+        <div className={`message ${this.state.turn == 0 ? "O" : "X"}`}>
+          {this.state.canPlay
+            ? `Player ${this.state.turn ? "X" : "O"}'s turn`
+            : `Player ${this.state.winner ? "X" : "O"} has won!`}
+        </div>
+        <div>{this.makeGrid()}</div>
       </div>
     );
   }
