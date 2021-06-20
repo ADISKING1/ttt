@@ -140,6 +140,7 @@ export default class Board extends Component {
           {this.arr.map((j, index1) => {
             return (
               <div
+                className="CellParent"
                 key={index1}
                 onClick={() => {
                   this.cellClicked(index, index1);
@@ -169,7 +170,7 @@ export default class Board extends Component {
               : `Player ${this.state.turn ? "X" : "O"}'s turn`
             : `Player ${this.state.winner ? "X" : "O"} has won!`}
         </div>
-        <div>{this.makeGrid()}</div>
+        <div id="Cells">{this.makeGrid()}</div>
       </div>
     );
   }

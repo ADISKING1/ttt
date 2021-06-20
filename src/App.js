@@ -2,6 +2,9 @@ import { Component } from "react";
 import Board from "./Board";
 import "./styles.css";
 import logo from "./image/github.png";
+import favicon from "./image/favicon.ico";
+
+document.getElementById("favicon").setAttribute("href", favicon);
 
 export default class App extends Component {
   constructor(props) {

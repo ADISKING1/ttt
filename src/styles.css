@@ -1,6 +1,7 @@
 body {
   text-align: center;
   font-family: "Poppins", sans-serif;
+  margin: 0px;
 }
 .App {
   font-family: sans-serif;
@@ -36,6 +37,7 @@ select {
   border-radius: 3px 3px 3px 3px;
   text-align: center;
   width: auto;
+  background-color: transparent;
 }
 input:focus,
 textarea:focus,
@@ -49,6 +51,7 @@ button {
   background-color: white;
   padding: 3px 10px;
   cursor: pointer;
+  border-radius: 3px;
 }
 img {
   height: 40px;

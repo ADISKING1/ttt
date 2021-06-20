@@ -1,17 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <link rel="icon" id="favicon" />
     <meta charset="utf-8" />
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600&display=swap"
+      rel="stylesheet"
+    />
+
     <title>Tic Tac Toe - React</title>
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
   </head>
 
   <body class="no-select">
     <div id="root"></div>
+    <script>
+      window.addEventListener("load", function () {
+        window.dispatchEvent(new Event("resize"));
+      });
+
+      window.onresize = function () {
+        var Cells = document.getElementById("Cells");
+        var scale = window.innerWidth / 500;
+        if (scale > 1) scale = 1;
+        Cells.style.marginTop = (1 - scale) * -150 + "px";
+        Cells.style.transform = "scale(" + scale + ")";
+      };
+    </script>
   </body>
 </html>
